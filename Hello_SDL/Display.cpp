@@ -63,9 +63,22 @@ void Display::Close()
 
 void Display::Show()
 {
-	SDL_BlitSurface(helloWorldBitmap, NULL, screenSurface, NULL);
+	bool quit = false;
 
-	SDL_UpdateWindowSurface(window);
+	//Event handler
+	SDL_Event e;
+	while (!quit)
+	{
+		while (SDL_PollEvent(&e) != 0)
+		{
+			if (e.type == SDL_QUIT)
+				quit = true;
+		}
 
-	SDL_Delay(5000);
+		SDL_BlitSurface(helloWorldBitmap, NULL, screenSurface, NULL);
+
+		SDL_UpdateWindowSurface(window);
+	}
+	
+
 }
